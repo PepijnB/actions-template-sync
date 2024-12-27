@@ -38,8 +38,6 @@ RUN mv /gh/gh_${GH_CLI_VER}_linux_amd64/bin/gh /usr/local/bin/
 RUN rm -f gh_${GH_CLI_VER}_linux_amd64.tar.gz
 RUN rm -rf /gh/gh_${GH_CLI_VER}_linux_amd64
 
-run gh
-
 ADD src/*.sh /bin/
 RUN chmod +x /bin/entrypoint.sh \
   && chmod +x /bin/sync_template.sh \
