@@ -160,7 +160,7 @@ function git_init() {
     pwd
     ls -l
 
-    apt install gh -Y
+    apt install gh --yes
 
     
     gh auth setup-git --hostname "${source_repo_hostname}"
