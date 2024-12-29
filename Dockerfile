@@ -20,8 +20,8 @@ LABEL org.opencontainers.image.description="contains actions-template-sync"
 # install packages
 RUN apk add --update --no-cache bash git curl musl openssh git-lfs yq gnupg github-cli
 
-# RUN wget https://github.com/cli/cli/releases/download/v${GH_CLI_VER}/gh_${GH_CLI_VER}_linux_386.tar.gz -O ghcli.tar.gz
-# RUN tar --strip-components=1 -xf ghcli.tar.gz
+RUN wget https://github.com/cli/cli/releases/download/v${GH_CLI_VER}/gh_${GH_CLI_VER}_linux_386.tar.gz -O ghcli.tar.gz
+RUN tar --strip-components=1 -xf ghcli.tar.gz
 
 # RUN (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
 # 	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
