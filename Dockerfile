@@ -18,19 +18,19 @@ LABEL org.opencontainers.image.title="actions-template-sync image"
 LABEL org.opencontainers.image.description="contains actions-template-sync"
 
 # install packages
-RUN apk add --update --no-cache bash git curl musl openssh git-lfs yq gnupg
+RUN apk add --update --no-cache bash git curl musl openssh git-lfs yq gnupg github-cli
 
 # RUN wget https://github.com/cli/cli/releases/download/v${GH_CLI_VER}/gh_${GH_CLI_VER}_linux_386.tar.gz -O ghcli.tar.gz
 # RUN tar --strip-components=1 -xf ghcli.tar.gz
 
-RUN (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
-	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
-        && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-        && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-	&& sudo apt update \
-	&& sudo apt install gh -y
+# RUN (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
+# 	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+#         && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+#         && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+# 	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+# 	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+# 	&& sudo apt update \
+# 	&& sudo apt install gh -y
  
 # # Create directory
 # RUN mkdir /gh
@@ -63,7 +63,7 @@ ENTRYPOINT ["/bin/bash", "/bin/entrypoint.sh"]
 FROM prod AS dev
 
 # install packages
-RUN apk add --update --no-cache make zsh tmux vim tig
+RUN apk add --update --no-cache make zsh tmux vim tig github-cli
 
 # Make zsh your default shell for tmux
 RUN echo "set-option -g default-shell /bin/zsh" >> /root/.tmux.conf
