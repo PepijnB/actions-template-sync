@@ -27,6 +27,11 @@ if [[ -z "${HOME}" ]]; then
   exit 1
 fi
 
+if ! [ -x "$(command -v gh)" ]; then
+  err "github-cli gh is not installed. 'https://github.com/cli/cli'";
+  exit 1;
+fi
+
 ############################################
 # Variables
 ############################################
@@ -156,8 +161,8 @@ function git_init() {
     ssh-keyscan -t rsa "${source_repo_hostname}" >> "${HOME}"/.ssh/known_hosts
   else
     info "the source repository is located within GitHub."
-    # gh auth setup-git --hostname "${source_repo_hostname}"
-    # gh auth status --hostname "${source_repo_hostname}"
+    gh auth setup-git --hostname "${source_repo_hostname}"
+    gh auth status --hostname "${source_repo_hostname}"
   fi
   echo "::endgroup::"
 }
