@@ -9,6 +9,8 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 # shellcheck source=src/sync_template.sh
 source "${SCRIPT_DIR}/sync_common.sh"
 
+echo "sync_template start"
+
 ############################################
 # Prechecks
 ############################################

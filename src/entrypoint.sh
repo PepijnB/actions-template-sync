@@ -191,7 +191,9 @@ git_init "${GIT_USER_EMAIL}" "${GIT_USER_NAME}" "${SOURCE_REPO_HOSTNAME}"
 echo "git_init success"
 
 if [[ -n "${GPG_PRIVATE_KEY}" ]] &>/dev/null; then
+  echo "Enter gpg_setup"
   gpg_setup "${GPG_PRIVATE_KEY}" "${GIT_USER_EMAIL}"
+  echo "gpg_setup done"
 fi
 
 # shellcheck source=src/sync_template.sh
