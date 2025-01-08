@@ -2,14 +2,12 @@
 
 set -e
 # set -u
-# set -x
+set -x
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 # shellcheck source=src/sync_template.sh
 source "${SCRIPT_DIR}/sync_common.sh"
-
-echo "sync_template start"
 
 ############################################
 # Prechecks
@@ -43,7 +41,6 @@ if [[ -z "${UPSTREAM_BRANCH}" ]]; then
   UPSTREAM_BRANCH="$(git remote show origin | awk '/HEAD branch/ {print $NF}')"
   info "Missing env variable 'UPSTREAM_BRANCH' setting to remote default ${UPSTREAM_BRANCH}";
 fi
-
 if [[ -n "${SRC_SSH_PRIVATEKEY_ABS_PATH}" ]]; then
   debug "using ssh private key for private source repository"
   export GIT_SSH_COMMAND="ssh -i ${SRC_SSH_PRIVATEKEY_ABS_PATH}"
