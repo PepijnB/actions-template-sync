@@ -175,11 +175,15 @@ function git_init() {
 if [[ -n "${SSH_PRIVATE_KEY_SRC}" ]] &>/dev/null; then
   ssh_setup "${SSH_PRIVATE_KEY_SRC}" "${SOURCE_REPO_HOSTNAME}"
 elif [[ "${SOURCE_REPO_HOSTNAME}" != "${DEFAULT_REPO_HOSTNAME}" ]]; then
+  echo github_token = ${GITHUB_TOKEN}
+  echo source_repo_hostname = ${SOURCE_REPO_HOSTNAME}
   gh auth login --git-protocol "https" --hostname "${SOURCE_REPO_HOSTNAME}" --with-token <<< "${GITHUB_TOKEN}"
 fi
 
 export SOURCE_REPO="${SOURCE_REPO_PREFIX}${SOURCE_REPO_PATH}"
 
+echo git_user_email = ${GIT_USER_EMAIL}
+echo git_user_name = ${GIT_USER_NAME}
 git_init "${GIT_USER_EMAIL}" "${GIT_USER_NAME}" "${SOURCE_REPO_HOSTNAME}"
 
 if [[ -n "${GPG_PRIVATE_KEY}" ]] &>/dev/null; then
