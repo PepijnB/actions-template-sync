@@ -161,8 +161,10 @@ function git_init() {
     ssh-keyscan -t rsa "${source_repo_hostname}" >> "${HOME}"/.ssh/known_hosts
   else
     info "the source repository is located within GitHub."
+    set -x
     gh auth setup-git --hostname "${source_repo_hostname}"
     gh auth status --hostname "${source_repo_hostname}"
+    set +x
   fi
   echo "::endgroup::"
 }
@@ -185,6 +187,8 @@ export SOURCE_REPO="${SOURCE_REPO_PREFIX}${SOURCE_REPO_PATH}"
 echo git_user_email = ${GIT_USER_EMAIL}
 echo git_user_name = ${GIT_USER_NAME}
 git_init "${GIT_USER_EMAIL}" "${GIT_USER_NAME}" "${SOURCE_REPO_HOSTNAME}"
+
+echo "git_init success"
 
 if [[ -n "${GPG_PRIVATE_KEY}" ]] &>/dev/null; then
   gpg_setup "${GPG_PRIVATE_KEY}" "${GIT_USER_EMAIL}"
