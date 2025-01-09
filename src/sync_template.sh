@@ -240,6 +240,10 @@ function pull_source_changes() {
   local source_repo=$1
   local git_remote_pull_params=$2
 
+  debug "source_repo = ${source_repo}"
+  debug "git_remote_pull_params = ${git_remote_pull_params}"
+  git branch 
+
   eval "git pull ${source_repo} --tags ${git_remote_pull_params}" || pull_has_issues=true
 
   if [ "$pull_has_issues" == true ] ; then
@@ -377,9 +381,13 @@ function create_or_edit_pr() {
 function restore_templatesyncignore_file() {
   info "restore the ignore file"
   local template_sync_ignore_file_path=$1
+
+  debug "template_sync_ignore_file_path = ${template_sync_ignore_file_path}"
   if [ -s "${template_sync_ignore_file_path}" ]; then
-    git reset "${template_sync_ignore_file_path}"
-    git checkout -- "${template_sync_ignore_file_path}" || warn "not able to checkout the former .templatesyncignore file. Most likely the file was not present"
+
+
+    git reset "${template_sync_ignore_file_path}" --verbose
+    git checkout -- "${template_sync_ignore_file_path}" --verbose || warn "not able to checkout the former .templatesyncignore file. Most likely the file was not present"
   fi
 }
 
