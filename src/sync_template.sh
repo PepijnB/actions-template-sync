@@ -384,10 +384,8 @@ function restore_templatesyncignore_file() {
 
   debug "template_sync_ignore_file_path = ${template_sync_ignore_file_path}"
   if [ -s "${template_sync_ignore_file_path}" ]; then
-
-
-    git reset "${template_sync_ignore_file_path}" --verbose
-    git checkout -- "${template_sync_ignore_file_path}" --verbose || warn "not able to checkout the former .templatesyncignore file. Most likely the file was not present"
+    git reset "${template_sync_ignore_file_path}"
+    git checkout -- "${template_sync_ignore_file_path}" || warn "not able to checkout the former .templatesyncignore file. Most likely the file was not present"
   fi
 }
 
